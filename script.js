@@ -8,29 +8,31 @@ var randomBtn = document.getElementById("randomBtn");
 setGradient();
 
 function setGradient() {
-	body.style.background = 
-	"linear-gradient(to right, " + color1.value + ", " + color2.value + ")";
-
+	body.style.background = "linear-gradient(to right, " + color1.value + ", " + color2.value + ")";
 	css.textContent = body.style.background + ";";
 }
 
-// Create a fuction to generate random rgb value (Math.floor from stack overflow, and I re-adapted it as I could by my current knowledge)
+// Create a fuction to generate random hex codes of color (formula from geeksforgeeks)
 function randomColors() {
-	const r1 = Math.floor(Math.random() * 256);
-  	const g1 = Math.floor(Math.random() * 256);
-  	const b1 = Math.floor(Math.random() * 256);
-	const r2 = Math.floor(Math.random() * 256);
-  	const g2 = Math.floor(Math.random() * 256);
-  	const b2 = Math.floor(Math.random() * 256);
-	var color1 = "rgb(" + r1 + ", " + g1 + ", " + b1 + ")";
-	var color2 = "rgb(" + r2 + ", " + g2 + ", " + b2 + ")";
-	body.style.background = "linear-gradient(to right, " + color1 + ", " + color2 + ")";
-	css.textContent = body.style.background + ";";
+	var letters = "0123456789ABCDEF";
+	var color = '#';
+	for (var i = 0; i < 6; i++)
+	color += letters[(Math.floor(Math.random() * 16))];
+	return color;
 }
+
+// Function to set randomColors to the color1 and color2 value. Call fanction setGradient to display it
+function setRandomInput() {
+	color1.value = randomColors();
+	color2.value = randomColors();
+	body.style.background = setGradient();
+	css.textContent = body.style.background + ";";
+  }
 
 
 color1.addEventListener("input", setGradient);
 
 color2.addEventListener("input", setGradient);
 
-randomBtn.addEventListener("click", randomColors);
+randomBtn.addEventListener("click", setRandomInput);
+
